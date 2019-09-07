@@ -1,12 +1,9 @@
 package com.turskyi.retrofitforgit
 
-import android.os.Build
-import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.RecyclerView
 
 class GitHubRepoAdapter internal constructor(
@@ -22,14 +19,9 @@ class GitHubRepoAdapter internal constructor(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val post = repos!![position]
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            holder.post.text = Html.fromHtml(post.elementPureHtml, Html.FROM_HTML_MODE_LEGACY)
-        } else {
-            holder.post.text = post.elementPureHtml?.let {
-                HtmlCompat.fromHtml(it, HtmlCompat.FROM_HTML_MODE_LEGACY)
-            }
-        }
+        holder.post.text = post.name
         holder.site.text = post.site
+        holder.description.text = post.desc
     }
 
     override fun getItemCount(): Int {
@@ -37,8 +29,9 @@ class GitHubRepoAdapter internal constructor(
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var post: TextView = itemView.findViewById(R.id.post_item_post) as TextView
-        var site: TextView = itemView.findViewById(R.id.post_item_site) as TextView
+        var post: TextView = itemView.findViewById(R.id.postItemName) as TextView
+        var site: TextView = itemView.findViewById(R.id.postItemSite) as TextView
+        var description: TextView = itemView.findViewById(R.id.postItemDescription) as TextView
     }
 }
 

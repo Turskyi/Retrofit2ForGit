@@ -4,54 +4,50 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     companion object {
-       var API_BASE_URL = "https://api.github.com/"
+        var API_BASE_URL = "https://api.github.com/"
     }
 
-    lateinit var recyclerView: RecyclerView
-    lateinit var repos: ArrayList<GitHubRepo>
+    var repos: ArrayList<GitHubRepo> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        repos = ArrayList()
-        //TODO: pagination :)
-        recyclerView = findViewById(R.id.pagination_list)
+
+        // set up the view
         val layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
-
         val adapter = GitHubRepoAdapter(repos)
         recyclerView.adapter = adapter
 
-        val builder: retrofit2.Retrofit.Builder = retrofit2.Retrofit.Builder()
-            .baseUrl(API_BASE_URL)
-            .addConverterFactory(
-                GsonConverterFactory.create()
-            )
+        // set up the retrofit
+        val builder: Retrofit.Builder = Retrofit.Builder().baseUrl(API_BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
 
-        val retrofit: retrofit2.Retrofit = builder.build()
-        val client = retrofit.create(GitHubClient::class.java)
-        val call: Call<List<GitHubRepo>> = client.reposForUser("Turskyi")
-        // Execute the call asynchronously. Get a positive or negative callback.
+        val retrofitClient: Retrofit = builder.build()
+
+        val gitHubClient = retrofitClient.create(GitHubClient::class.java)
+
+        val call: Call<List<GitHubRepo>> = gitHubClient.reposForUser("Turskyi")
         call.enqueue(object : Callback<List<GitHubRepo>> {
+
             override fun onResponse(
                 call: Call<List<GitHubRepo>>,
                 response: Response<List<GitHubRepo>>
             ) {
-                // The network call was a success and we got a response
                 response.body()?.let {
                     repos.addAll(it)
+                    recyclerView.adapter?.notifyDataSetChanged()
                 }
-                recyclerView.adapter?.notifyDataSetChanged()
             }
 
             override fun onFailure(call: Call<List<GitHubRepo>>, t: Throwable) {

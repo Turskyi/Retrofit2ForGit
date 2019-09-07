@@ -26,16 +26,27 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.0.2'
+
+    /* this is needed to use the updated AppCompatActivity */
+    implementation 'androidx.appcompat:appcompat:1.1.0-rc01'
+
+    /* These new versions add the ability to pass the layout ID to the constructor
+     of the Activity or Fragment base class,
+     and it will handle inflation behind-the-scenes. */
+    implementation 'androidx.activity:activity-ktx:1.1.0-alpha02'
+    implementation 'androidx.fragment:fragment-ktx:1.2.0-alpha02'
+
     implementation 'androidx.core:core-ktx:1.0.2'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
-    // Retrofit & OkHttp
-    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
+    def retrofit_version = "2.6.1"
+
+    // Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
 
     /* RecyclerView */
     implementation 'androidx.recyclerview:recyclerview:1.0.0'

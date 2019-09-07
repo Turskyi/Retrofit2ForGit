@@ -1,13 +1,10 @@
 package com.turskyi.retrofitforgit
 
 import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.Path
-
+import retrofit2.http.*
 
 interface GitHubClient {
-    @GET("/users/{user}/repos")
-    fun reposForUser(
-        @Path("user") user: String
-    ): Call<List<GitHubRepo>>
+    @GET("users/{user}/repos")
+    fun reposForUser(@Path("user") user: String): Call<List<GitHubRepo>>
+    // @FormUrlEncoded if POST
 }
