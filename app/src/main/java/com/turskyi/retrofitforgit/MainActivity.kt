@@ -12,6 +12,10 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.*
 
+/**
+ * @Description
+ * The app shows a list of open projects on GitHub
+ */
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     companion object {
