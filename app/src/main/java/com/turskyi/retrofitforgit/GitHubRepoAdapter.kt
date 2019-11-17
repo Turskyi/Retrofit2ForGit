@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class GitHubRepoAdapter internal constructor(
+class GitHubRepoAdapter constructor(
     private val repos: List<GitHubRepo>?
 ) :
     RecyclerView.Adapter<GitHubRepoAdapter.ViewHolder>() {
