@@ -5,33 +5,36 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.post_item.view.*
 
-class GitHubRepoAdapter constructor(
-    private val repos: List<GitHubRepo>?
-) :
-    RecyclerView.Adapter<GitHubRepoAdapter.ViewHolder>() {
+class GitHubRepoAdapter: RecyclerView.Adapter<GitHubRepoAdapter.ViewHolder>() {
+
+    private val repos: MutableList<GitHubRepo> = mutableListOf()
+    fun setData(repos: MutableList<GitHubRepo>) {
+        this.repos.clear()
+        this.repos.addAll(repos)
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val v = LayoutInflater
+        val itemView = LayoutInflater
             .from(parent.context).inflate(R.layout.post_item, parent, false)
-        return ViewHolder(v)
+        return ViewHolder(itemView)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val post = repos!![position]
-        holder.post.text = post.name
-        holder.site.text = post.site
-        holder.description.text = post.desc
+        val currentPost = repos[position]
+        holder.projectName.text = currentPost.name
+        holder.site.text = currentPost.site
+        holder.description.text = currentPost.desc
     }
 
-    override fun getItemCount(): Int {
-        return repos?.size ?: 0
-    }
+    override fun getItemCount() = repos.size
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var post: TextView = itemView.findViewById(R.id.postItemName) as TextView
-        var site: TextView = itemView.findViewById(R.id.postItemSite) as TextView
-        var description: TextView = itemView.findViewById(R.id.postItemDescription) as TextView
+        var projectName: TextView = itemView.postItemName
+        var site: TextView = itemView.postItemSite
+        var description: TextView = itemView.postItemDescription
     }
 }
 
