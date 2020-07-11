@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName
 import java.util.*
 
 data class GitHubRepo(
+    var owner: User? = null,
     @SerializedName("html_url") val site: String?,
     @SerializedName("git_url") val gitUrl: String?,
     @SerializedName("ssh_url") val sshUrl: String?,
