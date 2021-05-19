@@ -1,4 +1,4 @@
-package com.turskyi.retrofitforgit
+package com.turskyi.retrofitforgit.data.entities
 
 import java.util.*
 

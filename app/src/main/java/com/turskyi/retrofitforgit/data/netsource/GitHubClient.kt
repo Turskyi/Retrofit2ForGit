@@ -1,5 +1,6 @@
-package com.turskyi.retrofitforgit
+package com.turskyi.retrofitforgit.data.netsource
 
+import com.turskyi.retrofitforgit.data.entities.GitHubRepo
 import retrofit2.Call
 import retrofit2.http.*
 

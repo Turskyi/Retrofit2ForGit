@@ -1,10 +1,13 @@
-package com.turskyi.retrofitforgit
+package com.turskyi.retrofitforgit.presentation
 
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.activity_main.*
+import com.turskyi.retrofitforgit.data.netsource.GitHubClient
+import com.turskyi.retrofitforgit.data.entities.GitHubRepo
+import com.turskyi.retrofitforgit.R
+import com.turskyi.retrofitforgit.databinding.ActivityMainBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -20,10 +23,13 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     companion object {
         var API_BASE_URL = "https://api.github.com/"
     }
-
+    private lateinit var binding: ActivityMainBinding
     lateinit var adapter: GitHubRepoAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
         loadData()
     }
 
@@ -53,7 +59,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         adapter = GitHubRepoAdapter()
         adapter.setData(repos)
         val layoutManager = LinearLayoutManager(this)
-        recyclerView.layoutManager = layoutManager
-        recyclerView.adapter = adapter
+        binding.recyclerView.layoutManager = layoutManager
+        binding.recyclerView.adapter = adapter
     }
 }

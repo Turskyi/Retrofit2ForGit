@@ -1,11 +1,11 @@
-package com.turskyi.retrofitforgit
+package com.turskyi.retrofitforgit.presentation
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.post_item.view.*
+import com.turskyi.retrofitforgit.data.entities.GitHubRepo
+import com.turskyi.retrofitforgit.databinding.PostItemBinding
 
 class GitHubRepoAdapter: RecyclerView.Adapter<GitHubRepoAdapter.ViewHolder>() {
 
@@ -17,9 +17,9 @@ class GitHubRepoAdapter: RecyclerView.Adapter<GitHubRepoAdapter.ViewHolder>() {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val itemView = LayoutInflater
-            .from(parent.context).inflate(R.layout.post_item, parent, false)
-        return ViewHolder(itemView)
+        val binding: PostItemBinding = PostItemBinding.inflate(LayoutInflater
+            .from(parent.context),parent, false)
+        return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -31,10 +31,10 @@ class GitHubRepoAdapter: RecyclerView.Adapter<GitHubRepoAdapter.ViewHolder>() {
 
     override fun getItemCount() = repos.size
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var projectName: TextView = itemView.postItemName
-        var site: TextView = itemView.postItemSite
-        var description: TextView = itemView.postItemDescription
+    inner class ViewHolder(binding: PostItemBinding) : RecyclerView.ViewHolder(binding.root) {
+        var projectName: TextView = binding.postItemName
+        var site: TextView = binding.postItemSite
+        var description: TextView = binding.postItemDescription
     }
 }
 

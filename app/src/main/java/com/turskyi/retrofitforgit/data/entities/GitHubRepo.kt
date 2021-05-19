@@ -1,4 +1,4 @@
-package com.turskyi.retrofitforgit
+package com.turskyi.retrofitforgit.data.entities
 
 import com.google.gson.annotations.SerializedName
 import java.util.*
